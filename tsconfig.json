@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "es2018",                      
+    "module": "commonjs",                 
+    "lib": ["es2018", "esnext.asynciterable"],                      
+    "allowJs": true,                     
+    "sourceMap": true,                                    
+    "outDir": "./build",                       
+    "rootDir": "./src",                     
+    "removeComments": true,                      
+    "resolveJsonModule": true,
+    "strict": true,                         
+    "strictPropertyInitialization": false,  
+    "moduleResolution": "node",            
+    "baseUrl": ".",                       
+    "paths": {
+      "@entities/*": ["./src/entities/*"],
+      "@resolvers/*": ["./src/resolvers/*"],
+      "@server/*": ["./src/server/*"]
+    }, 
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/@types"],
+    "esModuleInterop": true,                  
+    "experimentalDecorators": true,        
+    "emitDecoratorMetadata": true,        
+    "skipLibCheck": true,                     
+    "forceConsistentCasingInFileNames": true 
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules/"
+  ]
+}
