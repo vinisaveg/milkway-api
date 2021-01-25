@@ -16,7 +16,9 @@
     "paths": {
       "@entities/*": ["./src/entities/*"],
       "@resolvers/*": ["./src/resolvers/*"],
-      "@server/*": ["./src/server/*"]
+      "@server/*": ["./src/server/*"],
+      "@context/*": ["./src/context/*"],
+      "@dataTypes/*": ["src/dataTypes/*"]
     }, 
     "typeRoots": [
       "./node_modules/@types",

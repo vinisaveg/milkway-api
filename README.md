@@ -1,8 +1,10 @@
 # milkway-api
 
-> GraphQL API for the milkway project
+> GraphQL API for milkway
 
 ## About
+
+## Techs
 
 ## Design
 

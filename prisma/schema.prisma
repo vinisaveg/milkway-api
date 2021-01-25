@@ -9,3 +9,31 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+
+model User {
+  id         Int         @id @default(autoincrement())
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  email      String      @unique
+  name       String
+  nickname   String      @unique
+  password   String
+  milkshakes Milkshake[]
+}
+
+model Milkshake {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  name        String
+  description String
+  ingredients String[]
+
+  User   User? @relation(fields: [userId], references: [id])
+  userId Int?
+}
+
+// model Favorites {
+//   id Int @id @default(autoincrement())
+
+// }
