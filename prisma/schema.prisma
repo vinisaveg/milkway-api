@@ -17,7 +17,7 @@ model User {
   email      String      @unique
   name       String
   nickname   String      @unique
-  password   String
+  password   String?
   milkshakes Milkshake[]
 }
 
@@ -32,8 +32,3 @@ model Milkshake {
   User   User? @relation(fields: [userId], references: [id])
   userId Int?
 }
-
-// model Favorites {
-//   id Int @id @default(autoincrement())
-
-// }

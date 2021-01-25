@@ -9,12 +9,20 @@ import { Context } from '@context/createContext';
 import { CreateUserInput } from '@dataTypes/inputs/CreateUserInput';
 import { UpdateUserInput } from '@dataTypes/inputs/UpdateUserInput';
 import { UserResponse } from '@dataTypes/response/UserResponse';
+import { handleUserResponse } from 'src/utils/handleUserResponse';
 
 @Resolver()
 export class UserResolver {
     @Query((returns) => [User])
     async users(@Ctx() ctx: Context): Promise<Array<User>> {
-        const users = await ctx.prisma.user.findMany();
+        const users = await ctx.prisma.user.findMany({
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                nickname: true,
+            },
+        });
 
         return users;
     }
@@ -28,23 +36,36 @@ export class UserResolver {
         const hashedPassword = await bcrypt.hash(data.password, salt);
 
         if (data.password.length <= 6) {
-            return {
-                error: {
-                    message: 'Length must be greater than 6.',
-                    field: 'Password',
-                },
-                success: false,
-            };
+            return handleUserResponse({
+                message: 'length must be greater than 6.',
+                field: 'password',
+            });
         }
 
         if (data.nickname.length <= 3) {
-            return {
-                error: {
-                    message: 'Length must be greater than 3.',
-                    field: 'Nickname',
-                },
-                success: false,
-            };
+            return handleUserResponse({
+                message: 'length must be greater than 3.',
+                field: 'nickname',
+            });
+        }
+
+        const findUserByEmail = await ctx.prisma.user.findFirst({
+            where: {
+                email: data.email,
+            },
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                nickname: true,
+            },
+        });
+
+        if (findUserByEmail) {
+            return handleUserResponse({
+                message: 'this email already has an account',
+                field: 'email',
+            });
         }
 
         const newUser = await ctx.prisma.user.create({
@@ -57,18 +78,12 @@ export class UserResolver {
         });
 
         if (newUser) {
-            return {
-                user: newUser,
-                success: true,
-            };
+            return handleUserResponse(null, true, newUser);
         }
 
-        return {
-            error: {
-                message: 'Could not create the user',
-            },
-            success: false,
-        };
+        return handleUserResponse({
+            message: 'could not create the user',
+        });
     }
 
     @Mutation((returns) => UserResponse)
@@ -77,6 +92,15 @@ export class UserResolver {
         @Arg('id') id: number,
         @Arg('data') data: UpdateUserInput
     ): Promise<UserResponse> {
+        if (data.nickname) {
+            if (data.nickname.length <= 3) {
+                return handleUserResponse({
+                    message: 'length must be greater than 6.',
+                    field: 'nickname',
+                });
+            }
+        }
+
         const updatedUser = await ctx.prisma.user.update({
             where: {
                 id,
@@ -84,21 +108,21 @@ export class UserResolver {
             data: {
                 ...data,
             },
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                nickname: true,
+            },
         });
 
         if (updatedUser) {
-            return {
-                success: true,
-                user: updatedUser,
-            };
+            return handleUserResponse(null, true, updatedUser);
         }
 
-        return {
-            success: false,
-            error: {
-                message: 'Could not update the user',
-            },
-        };
+        return handleUserResponse({
+            message: 'could not create the user',
+        });
     }
 
     @Mutation((returns) => UserResponse)
@@ -111,11 +135,9 @@ export class UserResolver {
         const hashedPassword = await bcrypt.hash(password, salt);
 
         if (password.length <= 6) {
-            return {
-                error: {
-                    message: 'Password must be greater than 6',
-                },
-            };
+            return handleUserResponse({
+                message: 'password must be greater than 6',
+            });
         }
 
         const user = await ctx.prisma.user.update({
@@ -125,21 +147,21 @@ export class UserResolver {
             data: {
                 password: hashedPassword,
             },
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                nickname: true,
+            },
         });
 
         if (user) {
-            return {
-                user,
-                success: true,
-            };
+            return handleUserResponse(null, true);
         }
 
-        return {
-            error: {
-                message: 'Could not update the password',
-            },
-            success: false,
-        };
+        return handleUserResponse({
+            message: 'could not update the password',
+        });
     }
 
     @Mutation((returns) => UserResponse)
@@ -147,23 +169,30 @@ export class UserResolver {
         @Ctx() ctx: Context,
         @Arg('id') id: number
     ): Promise<UserResponse> {
-        const deletedUser = await ctx.prisma.user.delete({
+        const userToDelete = await ctx.prisma.user.findFirst({
             where: {
                 id,
             },
         });
 
-        if (deletedUser) {
-            return {
-                success: true,
-            };
+        if (userToDelete) {
+            const deletedUser = await ctx.prisma.user.delete({
+                where: {
+                    id,
+                },
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    nickname: true,
+                },
+            });
+
+            if (deletedUser.id) {
+                return handleUserResponse(null, true);
+            }
         }
 
-        return {
-            success: false,
-            error: {
-                message: 'Could not delete the user',
-            },
-        };
+        return handleUserResponse({ message: 'could not find user id' });
     }
 }

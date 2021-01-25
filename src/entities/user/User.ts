@@ -17,8 +17,8 @@ export class User {
     @Field()
     nickname: string;
 
-    @Field()
-    password: string;
+    @Field((type) => String, { nullable: true })
+    password?: string | null;
 
     @Field((type) => [Milkshake], { nullable: true })
     milkshakes?: Array<Milkshake>;

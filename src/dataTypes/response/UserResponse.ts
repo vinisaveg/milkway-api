@@ -5,7 +5,7 @@ import { User } from '@entities/user/User';
 @ObjectType()
 export class ErrorType {
     @Field()
-    message: string;
+    message?: string;
 
     @Field({ nullable: true })
     field?: string;
@@ -17,7 +17,7 @@ export class UserResponse {
     user?: User;
 
     @Field((type) => ErrorType, { nullable: true })
-    error?: ErrorType;
+    error?: ErrorType | null;
 
     @Field({ nullable: true })
     success?: boolean;
