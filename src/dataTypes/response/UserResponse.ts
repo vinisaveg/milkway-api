@@ -1,7 +1,6 @@
 import { Field, ObjectType } from 'type-graphql';
 
 import { User } from '@entities/user/User';
-
 @ObjectType()
 export class ErrorType {
     @Field()

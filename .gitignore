@@ -7,3 +7,5 @@ build
 tsconfig.tsbuildinfo
 
 *.log
+
+/prisma/migrations/

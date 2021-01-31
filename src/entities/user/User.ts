@@ -1,7 +1,6 @@
 import { Milkshake } from '@entities/milkshake/Milkshake';
 import { IsEmail } from 'class-validator';
 import { Field, ID, ObjectType } from 'type-graphql';
-
 @ObjectType()
 export class User {
     @Field((type) => ID)

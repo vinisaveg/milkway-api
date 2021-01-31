@@ -1,13 +1,23 @@
 import { ApolloServer } from 'apollo-server';
 import { buildSchema } from 'type-graphql';
 
-import { HelloResolver } from '@resolvers/HelloResolver';
 import { createContext } from '@context/createContext';
-import { UserResolver } from '@resolvers/UserResolver';
+
+import { FindUsersResolver } from '@resolvers/User/FindUsersResolver';
+import { RegisterUserResolver } from '@resolvers/User/RegisterUserResolver';
+import { UpdateUserInfoResolver } from '@resolvers/User/UpdateUserInfoResolver';
+import { UpdateUserPasswordResolver } from '@resolvers/User/UpdateUserPasswordResolver';
+import { DeleteUserResolver } from '@resolvers/User/DeleteUserResolver';
 
 export const bootstrapServer = async () => {
     const schema = await buildSchema({
-        resolvers: [HelloResolver, UserResolver],
+        resolvers: [
+            FindUsersResolver,
+            RegisterUserResolver,
+            UpdateUserInfoResolver,
+            UpdateUserPasswordResolver,
+            DeleteUserResolver,
+        ],
     });
 
     const apolloServer = new ApolloServer({
