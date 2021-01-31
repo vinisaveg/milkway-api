@@ -31,6 +31,7 @@
   "dependencies": {
     "@prisma/client": "^2.15.0",
     "apollo-server": "^2.19.2",
+    "apollo-server-express": "^2.19.2",
     "bcryptjs": "^2.4.3",
     "class-validator": "^0.13.1",
     "connect-redis": "^5.0.0",
