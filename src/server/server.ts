@@ -1,6 +1,12 @@
 import { ApolloServer } from 'apollo-server';
 import { buildSchema } from 'type-graphql';
 
+import express from 'express';
+import session from 'express-session';
+import redis from 'redis';
+import connectRedis from 'connect-redis';
+import cors from 'cors';
+
 import { createContext } from '@context/createContext';
 
 import { FindUsersResolver } from '@resolvers/User/FindUsersResolver';

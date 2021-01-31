@@ -14,8 +14,13 @@
   "devDependencies": {
     "@prisma/cli": "^2.15.0",
     "@types/bcryptjs": "^2.4.2",
+    "@types/connect-redis": "^0.0.16",
+    "@types/cors": "^2.8.9",
+    "@types/express": "^4.17.11",
+    "@types/express-session": "^1.17.3",
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.22",
+    "@types/redis": "^2.8.28",
     "jest": "^26.6.3",
     "ts-jest": "^26.4.4",
     "ts-node-dev": "^1.1.1",
@@ -28,7 +33,12 @@
     "apollo-server": "^2.19.2",
     "bcryptjs": "^2.4.3",
     "class-validator": "^0.13.1",
+    "connect-redis": "^5.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "graphql": "^15.4.0",
+    "redis": "^3.0.2",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.1.1"
   }
