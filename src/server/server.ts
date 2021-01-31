@@ -1,5 +1,6 @@
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
+import { PrismaClient } from '@prisma/client';
 
 import express from 'express';
 import session from 'express-session';
@@ -11,12 +12,15 @@ import { createContext } from '@context/createContext';
 
 import { FindUsersResolver } from '@resolvers/User/FindUsersResolver';
 import { RegisterUserResolver } from '@resolvers/User/RegisterUserResolver';
+import { SignInUserResolver } from '@resolvers/User/SignInUserResolver';
 import { UpdateUserInfoResolver } from '@resolvers/User/UpdateUserInfoResolver';
 import { UpdateUserPasswordResolver } from '@resolvers/User/UpdateUserPasswordResolver';
 import { DeleteUserResolver } from '@resolvers/User/DeleteUserResolver';
 import { environment } from 'src/config/environment';
 
 export const bootstrapServer = async () => {
+    const prisma = new PrismaClient();
+
     const app = express();
 
     const RedisStore = connectRedis(session);
@@ -52,6 +56,7 @@ export const bootstrapServer = async () => {
         resolvers: [
             FindUsersResolver,
             RegisterUserResolver,
+            SignInUserResolver,
             UpdateUserInfoResolver,
             UpdateUserPasswordResolver,
             DeleteUserResolver,
@@ -60,7 +65,7 @@ export const bootstrapServer = async () => {
 
     const apolloServer = new ApolloServer({
         schema,
-        context: createContext(),
+        context: ({ req, res }) => createContext(prisma, req),
     });
 
     apolloServer.applyMiddleware({
