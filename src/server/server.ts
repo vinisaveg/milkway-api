@@ -8,6 +8,8 @@ import redis from 'redis';
 import connectRedis from 'connect-redis';
 import cors from 'cors';
 
+import { environment } from 'src/config/environment';
+
 import { createContext } from '@context/createContext';
 
 import { FindUsersResolver } from '@resolvers/User/FindUsersResolver';
@@ -16,7 +18,6 @@ import { SignInUserResolver } from '@resolvers/User/SignInUserResolver';
 import { UpdateUserInfoResolver } from '@resolvers/User/UpdateUserInfoResolver';
 import { UpdateUserPasswordResolver } from '@resolvers/User/UpdateUserPasswordResolver';
 import { DeleteUserResolver } from '@resolvers/User/DeleteUserResolver';
-import { environment } from 'src/config/environment';
 
 export const bootstrapServer = async () => {
     const prisma = new PrismaClient();
@@ -65,7 +66,7 @@ export const bootstrapServer = async () => {
 
     const apolloServer = new ApolloServer({
         schema,
-        context: ({ req, res }) => createContext(prisma, req),
+        context: ({ req, res }) => createContext(prisma, req.session),
     });
 
     apolloServer.applyMiddleware({

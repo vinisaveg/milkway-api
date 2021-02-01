@@ -22,8 +22,9 @@
         "@utils/*": ["src/utils/*"]
       }, 
       "typeRoots": [
+        "./src/@types",
         "./node_modules/@types",
-        "./src/@types"],
+      ],
       "esModuleInterop": true,                  
       "experimentalDecorators": true,        
       "emitDecoratorMetadata": true,        

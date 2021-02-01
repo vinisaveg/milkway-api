@@ -2,15 +2,15 @@ import { PrismaClient } from '@prisma/client';
 import { Request } from 'express';
 export interface Context {
     prisma: PrismaClient;
-    request: Request;
+    session: Request['session'];
 }
 
 export const createContext = (
     prisma: PrismaClient,
-    request: Request
+    session: Request['session']
 ): Context => {
     return {
         prisma,
-        request,
+        session,
     };
 };

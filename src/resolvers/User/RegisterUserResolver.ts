@@ -75,6 +75,8 @@ export class RegisterUserResolver {
         });
 
         if (newUser) {
+            (ctx.session as any).userId = newUser.id;
+
             return {
                 success: true,
                 user: newUser,
