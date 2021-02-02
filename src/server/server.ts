@@ -19,6 +19,7 @@ import { UpdateUserInfoResolver } from '@resolvers/User/UpdateUserInfoResolver';
 import { UpdateUserPasswordResolver } from '@resolvers/User/UpdateUserPasswordResolver';
 import { DeleteUserResolver } from '@resolvers/User/DeleteUserResolver';
 import { AuthUserResolver } from '@resolvers/User/AuthUserResolver';
+import { LogoutUserResolver } from '@resolvers/User/LogoutUserResolver';
 
 export const bootstrapServer = async () => {
     const prisma = new PrismaClient();
@@ -60,6 +61,7 @@ export const bootstrapServer = async () => {
             RegisterUserResolver,
             SignInUserResolver,
             AuthUserResolver,
+            LogoutUserResolver,
             UpdateUserInfoResolver,
             UpdateUserPasswordResolver,
             DeleteUserResolver,
