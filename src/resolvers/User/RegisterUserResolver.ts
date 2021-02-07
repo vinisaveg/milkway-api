@@ -43,9 +43,6 @@ export class RegisterUserResolver {
             },
             select: {
                 id: true,
-                name: true,
-                email: true,
-                nickname: true,
             },
         });
 
@@ -55,6 +52,25 @@ export class RegisterUserResolver {
                 error: {
                     message: 'this email already has an account',
                     field: 'email',
+                },
+            };
+        }
+
+        const findUserByNickname = await ctx.prisma.user.findFirst({
+            where: {
+                nickname: data.nickname,
+            },
+            select: {
+                id: true,
+            },
+        });
+
+        if (findUserByNickname) {
+            return {
+                success: false,
+                error: {
+                    message: 'this nickname belongs to someone else',
+                    field: 'nickname',
                 },
             };
         }
