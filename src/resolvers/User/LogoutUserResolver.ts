@@ -7,7 +7,7 @@ export class LogoutUserResolver {
     @Query(() => Boolean)
     async logoutUser(@Ctx() ctx: Context): Promise<Boolean> {
         if (ctx.session) {
-            (ctx.session as any).userId = null;
+            ctx.session.destroy(() => {});
 
             return true;
         }
