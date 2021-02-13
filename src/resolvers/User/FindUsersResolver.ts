@@ -13,6 +13,7 @@ export class FindUsersResolver {
                 name: true,
                 email: true,
                 nickname: true,
+                milkshakes: true,
             },
         });
 

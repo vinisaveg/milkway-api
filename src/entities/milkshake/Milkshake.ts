@@ -4,8 +4,8 @@ export class Milkshake {
     @Field((type) => ID)
     id: number;
 
-    @Field((type) => ID)
-    userId: number;
+    @Field((type) => Number, { nullable: true })
+    userId?: number | null;
 
     @Field()
     name: string;
