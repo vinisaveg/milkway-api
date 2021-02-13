@@ -1,10 +1,8 @@
-import { Field, ID, ObjectType } from 'type-graphql';
-@ObjectType()
-export class Milkshake {
-    @Field((type) => ID)
-    id: number;
+import { Field, ID, InputType } from 'type-graphql';
 
-    @Field((type) => ID)
+@InputType()
+export class CreateMilkshakeInput {
+    @Field()
     userId: number;
 
     @Field()
