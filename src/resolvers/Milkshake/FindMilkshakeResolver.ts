@@ -1,18 +1,29 @@
-import { Context } from '@context/createContext';
-import { Milkshake } from '@entities/milkshake/Milkshake';
 import { Arg, Ctx, Query, Resolver } from 'type-graphql';
 
+import { Context } from '@context/createContext';
+import { MilkshakeResponse } from '@dataTypes/response/MilkshakeResponse';
 @Resolver()
 export class FindMilkshakeResolver {
-    @Query((returns) => Milkshake)
+    @Query((returns) => MilkshakeResponse)
     async findMilkshake(
         @Ctx() ctx: Context,
         @Arg('id') id: number
-    ): Promise<Milkshake | null> {
+    ): Promise<MilkshakeResponse> {
         const findedMilkshake = await ctx.prisma.milkshake.findFirst({
             where: { id },
         });
 
-        return findedMilkshake;
+        if (findedMilkshake) {
+            return {
+                milkshake: findedMilkshake,
+                success: true,
+            };
+        }
+
+        return {
+            error: {
+                message: 'Could not find the Milkshake',
+            },
+        };
     }
 }
