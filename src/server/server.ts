@@ -23,6 +23,7 @@ import { LogoutUserResolver } from '@resolvers/User/LogoutUserResolver';
 import { CreateMilkshakeResolver } from '@resolvers/Milkshake/CreateMilkshakeResolver';
 import { FindMilkshakesResolver } from '@resolvers/Milkshake/FindMilkshakesResolver';
 import { DeleteMilkshakeResolver } from '@resolvers/Milkshake/DeleteMilkshakeResolver';
+import { UpdateMilkshakeResolver } from '@resolvers/Milkshake/UpdateMilkshakeResolver';
 
 export const bootstrapServer = async () => {
     const prisma = new PrismaClient();
@@ -72,6 +73,7 @@ export const bootstrapServer = async () => {
             FindMilkshakesResolver,
             CreateMilkshakeResolver,
             DeleteMilkshakeResolver,
+            UpdateMilkshakeResolver,
         ],
     });
 
