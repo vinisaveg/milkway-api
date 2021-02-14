@@ -1,14 +1,7 @@
 import { Field, ObjectType } from 'type-graphql';
 
 import { User } from '@entities/user/User';
-@ObjectType()
-export class ErrorType {
-    @Field()
-    message?: string;
-
-    @Field({ nullable: true })
-    field?: string;
-}
+import { ErrorType } from '@dataTypes/error/Error';
 
 @ObjectType()
 export class UserResponse {
