@@ -1,22 +1,48 @@
 import { Arg, Ctx, Mutation, Resolver } from 'type-graphql';
 
-import { Milkshake } from '@entities/milkshake/Milkshake';
 import { Context } from '@context/createContext';
 import { UpdateMilkshakeInput } from '@dataTypes/inputs/milkshake/UpdateMilkshakeInput';
+import { MilkshakeResponse } from '@dataTypes/response/MilkshakeResponse';
 
 @Resolver()
 export class UpdateMilkshakeResolver {
-    @Mutation((returns) => Milkshake)
+    @Mutation((returns) => MilkshakeResponse)
     async updateMilkshake(
         @Ctx() ctx: Context,
         @Arg('id') id: number,
         @Arg('data') data: UpdateMilkshakeInput
-    ): Promise<Milkshake> {
+    ): Promise<MilkshakeResponse> {
+        const milkshakeToUpdate = await ctx.prisma.milkshake.findFirst({
+            where: { id },
+        });
+
+        if (!milkshakeToUpdate) {
+            return {
+                success: false,
+                error: {
+                    message: 'Invalid milkshake id',
+                    field: 'id',
+                },
+            };
+        }
+
         const updatedMilkshake = await ctx.prisma.milkshake.update({
             where: { id },
             data: { ...data },
         });
 
-        return updatedMilkshake;
+        if (updatedMilkshake) {
+            return {
+                success: true,
+                milkshake: updatedMilkshake,
+            };
+        }
+
+        return {
+            success: false,
+            error: {
+                message: 'Could not update the Milkshake',
+            },
+        };
     }
 }
