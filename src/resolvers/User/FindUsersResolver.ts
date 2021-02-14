@@ -2,7 +2,6 @@ import { Ctx, Query, Resolver } from 'type-graphql';
 
 import { User } from '@entities/user/User';
 import { Context } from '@context/createContext';
-
 @Resolver()
 export class FindUsersResolver {
     @Query((of) => [User])

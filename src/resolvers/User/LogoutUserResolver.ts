@@ -1,7 +1,6 @@
 import { Resolver, Query, Ctx } from 'type-graphql';
 
 import { Context } from '@context/createContext';
-
 @Resolver()
 export class LogoutUserResolver {
     @Query(() => Boolean)

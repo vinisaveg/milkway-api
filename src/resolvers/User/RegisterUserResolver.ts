@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import { environment } from 'src/config/environment';
 
 import { Context } from '@context/createContext';
-import { RegisterUserInput } from '@dataTypes/inputs/RegisterUserInput';
+import { RegisterUserInput } from '@dataTypes/inputs/user/RegisterUserInput';
 import { UserResponse } from '@dataTypes/response/UserResponse';
 
 @Resolver()

@@ -1,7 +1,7 @@
 import { Arg, Ctx, Mutation, Resolver } from 'type-graphql';
 
 import { UserResponse } from '@dataTypes/response/UserResponse';
-import { UpdateUserInput } from '@dataTypes/inputs/UpdateUserInput';
+import { UpdateUserInput } from '@dataTypes/inputs/user/UpdateUserInput';
 import { Context } from '@context/createContext';
 
 @Resolver()

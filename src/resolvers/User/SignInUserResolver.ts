@@ -3,7 +3,7 @@ import { Arg, Ctx, Mutation, Resolver } from 'type-graphql';
 import bcrypt from 'bcryptjs';
 
 import { Context } from '@context/createContext';
-import { SignInUserInput } from '@dataTypes/inputs/SignInUserInput';
+import { SignInUserInput } from '@dataTypes/inputs/user/SignInUserInput';
 import { UserResponse } from '@dataTypes/response/UserResponse';
 
 @Resolver()

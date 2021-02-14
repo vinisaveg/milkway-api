@@ -2,7 +2,6 @@ import { Resolver, Query, Ctx } from 'type-graphql';
 
 import { Context } from '@context/createContext';
 import { User } from '@entities/user/User';
-
 @Resolver()
 export class AuthUserResolver {
     @Query(() => User, { nullable: true })
