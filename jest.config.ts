@@ -1,5 +1,5 @@
-const { compilerOptions } = require('./tsconfig.json');
-const { pathsToModuleNameMapper } = require('ts-jest/utils');
+import { compilerOptions } from './tsconfig.json';
+import { pathsToModuleNameMapper } from 'ts-jest/utils';
 
 /*
  * For a detailed explanation regarding each configuration property and type check, visit:
