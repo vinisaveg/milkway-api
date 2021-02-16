@@ -8,7 +8,7 @@ import redis from 'redis';
 import connectRedis from 'connect-redis';
 import cors from 'cors';
 
-import { environment } from 'src/config/environment';
+import { environment } from '@config/environment';
 
 import { createContext } from '@context/createContext';
 

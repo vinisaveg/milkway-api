@@ -18,8 +18,9 @@
       "@resolvers/*": ["./src/resolvers/*"],
       "@server/*": ["./src/server/*"],
       "@context/*": ["./src/context/*"],
-      "@dataTypes/*": ["src/dataTypes/*"],
-      "@utils/*": ["src/utils/*"]
+      "@dataTypes/*": ["./src/dataTypes/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@config/*": ["./src/config/*"]
     }, 
     "typeRoots": [
       "./src/@types",

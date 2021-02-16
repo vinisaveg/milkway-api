@@ -1,7 +1,7 @@
 import { Arg, Ctx, Mutation, Resolver } from 'type-graphql';
 import bcrypt from 'bcryptjs';
 
-import { environment } from 'src/config/environment';
+import { environment } from '@config/environment';
 
 import { Context } from '@context/createContext';
 import { RegisterUserInput } from '@dataTypes/inputs/user/RegisterUserInput';
