@@ -12,8 +12,19 @@ export class UpdateMilkshakeResolver {
         @Arg('id') id: number,
         @Arg('data') data: UpdateMilkshakeInput
     ): Promise<MilkshakeResponse> {
+        let userId = await (ctx.session as any).userId;
+
+        if (!userId) {
+            return {
+                error: {
+                    message: 'Please sign in to be able to update a milkshake',
+                    field: 'auth',
+                },
+            };
+        }
+
         const milkshakeToUpdate = await ctx.prisma.milkshake.findFirst({
-            where: { id },
+            where: { id: id, userId: userId },
         });
 
         if (!milkshakeToUpdate) {
