@@ -20,8 +20,19 @@ export class CreateMilkshakeResolver {
             };
         }
 
+        let userId = await (ctx.session as any).userId;
+
+        if (!userId) {
+            return {
+                error: {
+                    message: 'Please sign in to be able to create a milkshake',
+                    field: 'auth',
+                },
+            };
+        }
+
         const findUserById = await ctx.prisma.user.findFirst({
-            where: { id: data.userId },
+            where: { id: userId },
         });
 
         if (!findUserById) {
@@ -34,7 +45,7 @@ export class CreateMilkshakeResolver {
         }
 
         const newMilkshake = await ctx.prisma.milkshake.create({
-            data: data,
+            data: { ...data, userId: userId },
         });
 
         if (newMilkshake) {
