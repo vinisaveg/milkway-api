@@ -11,11 +11,20 @@ export class UpdateUserPasswordResolver {
     @Mutation((of) => UserResponse)
     async updateUserPassword(
         @Ctx() ctx: Context,
-        @Arg('id') id: number,
+        @Arg('oldPassword') oldPassword: string,
         @Arg('password') password: string
     ): Promise<UserResponse> {
-        let salt = bcrypt.genSaltSync(environment.saltRounds);
-        const hashedPassword = await bcrypt.hash(password, salt);
+        let userId = await (ctx.session as any).userId;
+
+        if (!userId) {
+            return {
+                error: {
+                    message:
+                        'Please sign in to be able to update your password',
+                    field: 'auth',
+                },
+            };
+        }
 
         if (password.length <= 6) {
             return {
@@ -27,31 +36,67 @@ export class UpdateUserPasswordResolver {
             };
         }
 
-        const user = await ctx.prisma.user.update({
+        const userHashedPassword = await ctx.prisma.user.findFirst({
             where: {
-                id,
-            },
-            data: {
-                password: hashedPassword,
+                id: userId,
             },
             select: {
-                id: true,
-                name: true,
-                email: true,
-                nickname: true,
+                password: true,
             },
         });
 
-        if (user) {
+        if (!userHashedPassword?.password) {
             return {
-                success: true,
+                error: {
+                    message: 'Could not check your password',
+                    field: 'auth',
+                },
+            };
+        }
+
+        let result = await bcrypt.compare(
+            oldPassword,
+            userHashedPassword.password
+        );
+
+        if (result) {
+            let salt = bcrypt.genSaltSync(environment.saltRounds);
+            const hashedPassword = await bcrypt.hash(password, salt);
+
+            const updatedUser = await ctx.prisma.user.update({
+                where: {
+                    id: userId,
+                },
+                data: {
+                    password: hashedPassword,
+                },
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    nickname: true,
+                },
+            });
+
+            if (updatedUser) {
+                return {
+                    success: true,
+                };
+            }
+
+            return {
+                success: false,
+                error: {
+                    message: 'could not update the password',
+                },
             };
         }
 
         return {
             success: false,
             error: {
-                message: 'could not update the password',
+                message: 'the old password is incorrect',
+                field: 'password',
             },
         };
     }

@@ -9,9 +9,19 @@ export class UpdateUserInfoResolver {
     @Mutation((of) => UserResponse)
     async updateUserInfo(
         @Ctx() ctx: Context,
-        @Arg('id') id: number,
         @Arg('data') data: UpdateUserInput
     ): Promise<UserResponse> {
+        let userId = await (ctx.session as any).userId;
+
+        if (!userId) {
+            return {
+                error: {
+                    message: 'Please sign in to be able to update your info',
+                    field: 'auth',
+                },
+            };
+        }
+
         if (data.nickname) {
             if (data.nickname.length <= 3) {
                 return {
@@ -26,7 +36,7 @@ export class UpdateUserInfoResolver {
 
         const updatedUser = await ctx.prisma.user.update({
             where: {
-                id,
+                id: userId,
             },
             data: {
                 ...data,
@@ -49,7 +59,7 @@ export class UpdateUserInfoResolver {
         return {
             success: false,
             error: {
-                message: 'could not create the user',
+                message: 'could not update the user',
             },
         };
     }
