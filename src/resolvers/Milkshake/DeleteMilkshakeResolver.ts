@@ -10,8 +10,19 @@ export class DeleteMilkshakeResolver {
         @Ctx() ctx: Context,
         @Arg('id') id: number
     ): Promise<MilkshakeResponse> {
+        let userId = await (ctx.session as any).userId;
+
+        if (!userId) {
+            return {
+                error: {
+                    message: 'Please sign in to be able to delete a milkshake',
+                    field: 'auth',
+                },
+                success: false,
+            };
+        }
         const milkshakeToDelete = await ctx.prisma.milkshake.findFirst({
-            where: { id },
+            where: { id: id, userId: userId },
         });
 
         if (!milkshakeToDelete) {
