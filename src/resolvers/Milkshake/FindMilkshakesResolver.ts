@@ -12,6 +12,9 @@ export class FindMilkshakesResolver {
     ): Promise<Array<Milkshake>> {
         const milkshakes = await ctx.prisma.milkshake.findMany({
             take: limit,
+            orderBy: {
+                createdAt: 'desc',
+            },
         });
 
         return milkshakes;
