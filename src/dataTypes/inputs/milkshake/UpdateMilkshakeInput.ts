@@ -9,7 +9,7 @@ export class UpdateMilkshakeInput {
     description?: string;
 
     @Field({ nullable: true })
-    recipe?: string;
+    instructions?: string;
 
     @Field((type) => [String], { nullable: true })
     ingredients?: Array<string>;

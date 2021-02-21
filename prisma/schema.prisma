@@ -22,15 +22,15 @@ model User {
 }
 
 model Milkshake {
-  id          Int      @id @default(autoincrement())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  name        String
-  description String
-  recipe      String
-  ingredients String[]
-  iconColorA  String
-  iconColorB  String
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  name         String
+  description  String
+  instructions String
+  ingredients  String[]
+  iconColorA   String
+  iconColorB   String
 
   User   User? @relation(fields: [userId], references: [id])
   userId Int?

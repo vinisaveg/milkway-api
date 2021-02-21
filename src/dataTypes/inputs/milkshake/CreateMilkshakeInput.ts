@@ -9,7 +9,7 @@ export class CreateMilkshakeInput {
     description: string;
 
     @Field()
-    recipe: string;
+    instructions: string;
 
     @Field((type) => [String])
     ingredients: Array<string>;
