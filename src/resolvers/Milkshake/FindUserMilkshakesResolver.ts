@@ -18,6 +18,9 @@ export class FindUserMilkshakesResolver {
                     userId: userId,
                 },
                 take: limit,
+                orderBy: {
+                    createdAt: 'desc',
+                },
             });
 
             return userMilkshakes;
