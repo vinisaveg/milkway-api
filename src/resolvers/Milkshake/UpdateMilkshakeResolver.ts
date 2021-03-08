@@ -12,7 +12,7 @@ export class UpdateMilkshakeResolver {
         @Arg('id') id: number,
         @Arg('data') data: UpdateMilkshakeInput
     ): Promise<MilkshakeResponse> {
-        let userId = await (ctx.session as any).userId;
+        let userId = await (ctx.request.session as any).userId;
 
         if (!userId) {
             return {

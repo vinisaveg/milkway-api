@@ -1,16 +1,19 @@
 import { PrismaClient } from '@prisma/client';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 export interface Context {
     prisma: PrismaClient;
-    session: Request['session'];
+    request: Request;
+    response: Response;
 }
 
 export const createContext = (
     prisma: PrismaClient,
-    session: Request['session']
+    request: Request,
+    response: Response
 ): Context => {
     return {
         prisma,
-        session,
+        request,
+        response,
     };
 };

@@ -11,7 +11,7 @@ export class UpdateUserInfoResolver {
         @Ctx() ctx: Context,
         @Arg('data') data: UpdateUserInput
     ): Promise<UserResponse> {
-        let userId = await (ctx.session as any).userId;
+        let userId = await (ctx.request.session as any).userId;
 
         if (!userId) {
             return {

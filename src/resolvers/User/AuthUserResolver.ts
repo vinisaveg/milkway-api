@@ -6,7 +6,7 @@ import { User } from '@entities/user/User';
 export class AuthUserResolver {
     @Query(() => User, { nullable: true })
     async authUser(@Ctx() ctx: Context): Promise<User | null> {
-        let userId = await (ctx.session as any).userId;
+        let userId = await (ctx.request.session as any).userId;
 
         if (userId) {
             const user = await ctx.prisma.user.findFirst({

@@ -83,7 +83,7 @@ export const bootstrapServer = async () => {
 
     const apolloServer = new ApolloServer({
         schema,
-        context: ({ req, res }) => createContext(prisma, req.session),
+        context: ({ req, res }) => createContext(prisma, req, res),
     });
 
     apolloServer.applyMiddleware({

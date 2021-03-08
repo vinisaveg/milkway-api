@@ -10,22 +10,22 @@ export class FindUserMilkshakesResolver {
         @Ctx() ctx: Context,
         @Arg('limit', { nullable: true }) limit: number
     ): Promise<Array<Milkshake>> {
-        let userId = await (ctx.session as any).userId;
+        let userId = await (ctx.request.session as any).userId;
 
-        if (userId) {
-            const userMilkshakes = await ctx.prisma.milkshake.findMany({
-                where: {
-                    userId: userId,
-                },
-                take: limit,
-                orderBy: {
-                    createdAt: 'desc',
-                },
-            });
-
-            return userMilkshakes;
+        if (!userId) {
+            return [];
         }
 
-        return [];
+        const userMilkshakes = await ctx.prisma.milkshake.findMany({
+            where: {
+                userId: userId,
+            },
+            take: limit,
+            orderBy: {
+                createdAt: 'desc',
+            },
+        });
+
+        return userMilkshakes;
     }
 }

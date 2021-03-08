@@ -91,7 +91,7 @@ export class RegisterUserResolver {
         });
 
         if (newUser) {
-            (ctx.session as any).userId = newUser.id;
+            (ctx.request.session as any).userId = newUser.id;
 
             return {
                 success: true,

@@ -27,7 +27,7 @@ export class SignInUserResolver {
             let result = await bcrypt.compare(data.password, user.password);
 
             if (result) {
-                (ctx.session as any).userId = user.id;
+                (ctx.request.session as any).userId = user.id;
 
                 return {
                     success: true,

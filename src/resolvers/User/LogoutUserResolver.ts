@@ -5,8 +5,12 @@ import { Context } from '@context/createContext';
 export class LogoutUserResolver {
     @Query(() => Boolean)
     async logoutUser(@Ctx() ctx: Context): Promise<Boolean> {
-        if (ctx.session) {
-            ctx.session.destroy(() => {});
+        if (ctx.request.session) {
+            ctx.request.session.destroy(() => {});
+
+            ctx.response.clearCookie('sid', {
+                path: '/',
+            });
 
             return true;
         }

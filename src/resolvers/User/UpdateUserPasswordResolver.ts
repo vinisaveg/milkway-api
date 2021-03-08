@@ -14,7 +14,7 @@ export class UpdateUserPasswordResolver {
         @Arg('oldPassword') oldPassword: string,
         @Arg('password') password: string
     ): Promise<UserResponse> {
-        let userId = await (ctx.session as any).userId;
+        let userId = await (ctx.request.session as any).userId;
 
         if (!userId) {
             return {
