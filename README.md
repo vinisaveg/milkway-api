@@ -6,7 +6,7 @@
 
 ## About :question:
 
-This project is the GraphQL API for milkway
+This project is the GraphQL API for milkway.
 
 milkway is an open web app to share milkshake recipes.
 
