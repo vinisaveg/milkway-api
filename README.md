@@ -51,6 +51,7 @@ Create a .env file following the example.env file
     DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<database>?schema=public"
     SALT_ROUNDS=<number>
     SESSION_SECRET=<secret>
+    ORIGIN=http://localhost:3000
 
 
 ```
