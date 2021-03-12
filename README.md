@@ -21,7 +21,7 @@ In these hard times we are living in, a well prepared milkshake can cheer anyone
 -   [`ApolloServer`](https://www.prisma.io)
 -   [`Express.js`](https://www.prisma.io)
 -   [`Redis`](https://www.prisma.io)
--   [`Redis`](https://www.postgresql.org)
+-   [`Postgresql`](https://www.postgresql.org)
 
 ## Installing :construction_worker:
 
