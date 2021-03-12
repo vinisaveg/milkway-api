@@ -6,7 +6,7 @@
 
 ## About :question:
 
-This project is the GraphQL API for [`milkway`](https://github.com/vinisaveg/milkway). 
+This project is the GraphQL API for [`milkway`](https://github.com/vinisaveg/milkway).
 
 milkway is an open web app to share milkshake recipes.
 
@@ -21,12 +21,13 @@ In these hard times we are living in, a well prepared milkshake can cheer anyone
 -   [`ApolloServer`](https://www.prisma.io)
 -   [`Express.js`](https://www.prisma.io)
 -   [`Redis`](https://www.prisma.io)
+-   [`Redis`](https://www.postgresql.org)
 
 ## Installing :construction_worker:
 
 To run the app you will also need to install the Front-end project [`here`](https://github.com/vinisaveg/milkway).
 
-And make sure you have [`redis`](https://redis.io) installed
+And make sure you have [`redis`](https://redis.io) and [`postgresql`](https://www.postgresql.org) installed.
 
 First clone this repo
 
